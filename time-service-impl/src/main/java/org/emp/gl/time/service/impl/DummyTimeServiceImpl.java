@@ -28,6 +28,7 @@ public class DummyTimeServiceImpl
     int secondes;
     int heures;
 
+
     /**
      * Constructeur du DummyTimeServiceImpl Ici, nnous avons hérité de la classe
      * TimerTask, et nous nous avons utilisé un objet Timer, qui permet de
@@ -54,7 +55,7 @@ public class DummyTimeServiceImpl
     }
 
     List<TimerChangeListener> listeners = new LinkedList<>();
-
+    List<TimerChangeListener> timerChangeListenerSecondsList=new LinkedList<TimerChangeListener>();
     @Override
     public void addTimeChangeListener(TimerChangeListener pl) {
         listeners.add(pl);
@@ -63,11 +64,21 @@ public class DummyTimeServiceImpl
     @Override
     public void addTimeChangeListener(TimerChangeListener pl, String prop) {
         // TODO
+        if(prop=="SECONDS"){
+            timerChangeListenerSecondsList.add(pl);
+        }
+
     }
 
     @Override
     public void removeTimeChangeListener(TimerChangeListener pl) {
         listeners.remove(pl);
+    }
+
+    @Override
+    public void removeTimeChangeListener(TimerChangeListener pl,String prop) {
+        if(prop.equals("SECONDS"))
+            timerChangeListenerSecondsList.remove(pl);
     }
 
     private void timeChanged() {
@@ -106,6 +117,11 @@ public class DummyTimeServiceImpl
     private void secondesChanged(int oldValue, int secondes) {
 
         for (TimerChangeListener l : listeners) {
+            l.propertyChange(TimerChangeListener.SECONDE_PROP,
+                    oldValue, secondes);
+        }
+        for(TimerChangeListener l:timerChangeListenerSecondsList)
+        {
             l.propertyChange(TimerChangeListener.SECONDE_PROP,
                     oldValue, secondes);
         }

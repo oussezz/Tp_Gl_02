@@ -25,13 +25,15 @@ public class App {
 
 //        TimerChangeListener compteARebour=new CompteARebour(5);
 //        Lookup.getInstance().getService(TimerService.class).addTimeChangeListener(compteARebour);
+        CompteARebour compteARebour=new CompteARebour(5);
+        Lookup.getInstance().getService(TimerService.class).addTimeChangeListener(compteARebour,"SECONDS");
         //instantiation random
-        for(int i=0;i<10;i++)
-        {
-            Random random=new Random();
-            CompteARebour compteARebour=new CompteARebour(random.nextInt(10)+5);
-            Lookup.getInstance().getService(TimerService.class).addTimeChangeListener(compteARebour);
-        }
+//        for(int i=0;i<10;i++)
+//        {
+//            Random random=new Random();
+//            CompteARebour compteARebour=new CompteARebour(random.nextInt(10)+5);
+//            Lookup.getInstance().getService(TimerService.class).addTimeChangeListener(compteARebour);
+//        }
 
     }
 

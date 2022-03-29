@@ -24,22 +24,35 @@ public class CompteARebour implements TimerChangeListener {
     }
     @Override
     public void propertyChange(String propertyName, Object oldValue, Object newValue) {
-        Object lock;
 
-        if(propertyName=="seconde") {
-            System.out.println("TimeReste: "+timeToLeave);
-            if(timeToLeave==0)
+
+//        if(propertyName=="seconde") {
+//            System.out.println("TimeReste: "+timeToLeave);
+//            if(timeToLeave==0)
+//            {
+//
+//
+//                Lookup lookup=Lookup.getInstance();
+//                lookup.getService(TimerService.class).removeTimeChangeListener(this);
+//
+//
+//            }
+//            else
+//                this.timeToLeave -= 1;
+//        }
+        System.out.println("TimeReste: "+timeToLeave);
+
+        if(timeToLeave==0)
             {
 
-
                 Lookup lookup=Lookup.getInstance();
-                lookup.getService(TimerService.class).removeTimeChangeListener(this);
+                lookup.getService(TimerService.class).removeTimeChangeListener(this,"SECONDS");
 
 
             }
             else
                 this.timeToLeave -= 1;
-        }
+
 
 
     }
