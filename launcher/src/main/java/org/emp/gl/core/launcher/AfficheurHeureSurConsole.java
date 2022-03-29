@@ -14,6 +14,14 @@ import org.emp.gl.timer.service.TimerService;
  *
  * @author tina
  */
-public class AfficheurHeureSurConsole  {
+public class AfficheurHeureSurConsole  implements TimerChangeListener{
 
+
+    @Override
+    public void propertyChange(String propertyName, Object oldValue, Object newValue) {
+        Lookup lookup=Lookup.getInstance();
+        TimerService timerService=lookup.getService(TimerService.class);
+        System.out.println(timerService.getHeures()+":"+timerService.getMinutes()+":"+ timerService.getSecondes()+":"+timerService.getDixiemeDeSeconde());
+
+    }
 }

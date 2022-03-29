@@ -2,8 +2,11 @@ package org.emp.gl.core.launcher;
 
 import org.emp.gl.core.lookup.Lookup;
 import org.emp.gl.time.service.impl.DummyTimeServiceImpl;
+import org.emp.gl.timer.service.TimeChangeProvider;
 import org.emp.gl.timer.service.TimerChangeListener;
 import org.emp.gl.timer.service.TimerService;
+
+import java.util.Random;
 
 /**
  * Hello world!
@@ -17,6 +20,18 @@ public class App {
 
     public static void main(String[] args) {
 
+//        TimerChangeListener afficheurHeureSurConsole=new AfficheurHeureSurConsole();
+//        Lookup.getInstance().getService(TimerService.class).addTimeChangeListener(afficheurHeureSurConsole);
+
+//        TimerChangeListener compteARebour=new CompteARebour(5);
+//        Lookup.getInstance().getService(TimerService.class).addTimeChangeListener(compteARebour);
+        //instantiation random
+        for(int i=0;i<10;i++)
+        {
+            Random random=new Random();
+            CompteARebour compteARebour=new CompteARebour(random.nextInt(10)+5);
+            Lookup.getInstance().getService(TimerService.class).addTimeChangeListener(compteARebour);
+        }
 
     }
 
