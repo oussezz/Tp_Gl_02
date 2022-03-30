@@ -5,6 +5,9 @@
  */
 package org.emp.gl.time.service.impl;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.time.LocalTime;
 import java.util.LinkedList;
 import java.util.List;
@@ -12,6 +15,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import lombok.Getter;
+import lombok.experimental.Delegate;
 import org.emp.gl.timer.service.TimerChangeListener;
 import org.emp.gl.timer.service.TimerService;
 
@@ -27,7 +31,7 @@ public class DummyTimeServiceImpl
     int minutes;
     int secondes;
     int heures;
-
+    PropertyChangeSupport var=new PropertyChangeSupport(this);
 
     /**
      * Constructeur du DummyTimeServiceImpl Ici, nnous avons hérité de la classe
@@ -58,27 +62,31 @@ public class DummyTimeServiceImpl
     List<TimerChangeListener> timerChangeListenerSecondsList=new LinkedList<TimerChangeListener>();
     @Override
     public void addTimeChangeListener(TimerChangeListener pl) {
-        listeners.add(pl);
+//        listeners.add(pl);
+        var.addPropertyChangeListener(pl);
     }
 
     @Override
     public void addTimeChangeListener(TimerChangeListener pl, String prop) {
         // TODO
-        if(prop=="SECONDS"){
-            timerChangeListenerSecondsList.add(pl);
-        }
+//        if(prop=="SECONDS"){
+//            timerChangeListenerSecondsList.add(pl);
+//        }
+        var.addPropertyChangeListener(prop,pl);
 
     }
 
     @Override
     public void removeTimeChangeListener(TimerChangeListener pl) {
-        listeners.remove(pl);
+//        listeners.remove(pl);
+        var.removePropertyChangeListener(pl);
     }
 
     @Override
     public void removeTimeChangeListener(TimerChangeListener pl,String prop) {
-        if(prop.equals("SECONDS"))
-            timerChangeListenerSecondsList.remove(pl);
+//        if(prop.equals("SECONDS"))
+//            timerChangeListenerSecondsList.remove(pl);
+        var.removePropertyChangeListener(prop,pl);
     }
 
     private void timeChanged() {
@@ -114,17 +122,23 @@ public class DummyTimeServiceImpl
         secondesChanged(oldValue, secondes);
     }
 
+
     private void secondesChanged(int oldValue, int secondes) {
 
-        for (TimerChangeListener l : listeners) {
-            l.propertyChange(TimerChangeListener.SECONDE_PROP,
-                    oldValue, secondes);
-        }
-        for(TimerChangeListener l:timerChangeListenerSecondsList)
-        {
-            l.propertyChange(TimerChangeListener.SECONDE_PROP,
-                    oldValue, secondes);
-        }
+//        for (TimerChangeListener l : listeners) {
+//            l.propertyChange(TimerChangeListener.SECONDE_PROP,
+//                    oldValue, secondes);
+//        }
+//
+//        for(TimerChangeListener l:timerChangeListenerSecondsList)
+//        {
+//            PropertyChangeEvent evt=new PropertyChangeEvent(secondes,"SECONDS",null,null);
+////            l.propertyChange(TimerChangeListener.SECONDE_PROP,
+////                    oldValue, secondes);
+//             l.propertyChange(evt);
+//        }
+
+        var.firePropertyChange("SECONDS",null,null);
     }
 
 

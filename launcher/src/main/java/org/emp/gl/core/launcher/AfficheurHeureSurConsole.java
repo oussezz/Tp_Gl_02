@@ -24,4 +24,9 @@ public class AfficheurHeureSurConsole  implements TimerChangeListener{
         System.out.println(timerService.getHeures()+":"+timerService.getMinutes()+":"+ timerService.getSecondes()+":"+timerService.getDixiemeDeSeconde());
 
     }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+
+    }
 }

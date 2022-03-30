@@ -40,7 +40,7 @@ public class CompteARebour implements TimerChangeListener {
 //            else
 //                this.timeToLeave -= 1;
 //        }
-        System.out.println("TimeReste: "+timeToLeave);
+
 
         if(timeToLeave==0)
             {
@@ -49,11 +49,37 @@ public class CompteARebour implements TimerChangeListener {
                 lookup.getService(TimerService.class).removeTimeChangeListener(this,"SECONDS");
 
 
+
             }
-            else
-                this.timeToLeave -= 1;
+            else {
+            System.out.println("TimeReste: "+timeToLeave);
+            this.timeToLeave -= 1;
+        }
 
 
 
     }
-}
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+
+        if(timeToLeave==0)
+        {
+            System.out.println("FIN");
+
+
+            Lookup lookup=Lookup.getInstance();
+            lookup.getService(TimerService.class).removeTimeChangeListener(this,"SECONDS");
+
+
+        }
+        else {
+            this.timeToLeave -= 1;
+            System.out.println("TimeReste: "+timeToLeave);
+
+        }
+
+
+    }
+    }
+
